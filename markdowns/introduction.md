@@ -4,7 +4,7 @@
 
 ## Single source of truth
 @[show state]({
-  "command": "chmod +x run && run",
+  "command": "bash -c 'chmod +x run && ./run'",
   "project": "todos"
   })
 
