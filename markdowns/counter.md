@@ -1,10 +1,12 @@
-The example used to
+Here is a step by step example in order to code a simple application using redux with react.
+The application used as example in the simple `Counter` application which you can find the preview:
 
-@[Test reducer]({
+@[Counter application preview]({
   "command": "./run",
   "project": "counter"
 })
 
+Now, let's start to code it!
 
 # Reducer
 
