@@ -1,0 +1,9 @@
+title: Redux with React by example: the famous ToDo list
+plan:
+  - title: Introduction
+    statement: markdowns/introduction.md
+
+projects:
+  todos:
+    root: examples/todos
+    runner: techio/node-npm-runner
