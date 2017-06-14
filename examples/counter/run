@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yarn test reducers/counter-reducer
+CI=true yarn test counter-reducer
