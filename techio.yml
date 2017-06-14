@@ -7,3 +7,6 @@ projects:
   todos:
     root: examples/todos
     runner: techio/node-npm-runner
+  counter:
+    root: examples/counter
+    runner: fraisse/node-runner
