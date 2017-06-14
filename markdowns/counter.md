@@ -2,7 +2,7 @@
 
 @[Test reducer]({
   "stubs": ["src/reducers/index.js"],
-  "command": "chmod +x run && run",
+  "command": "run",
   "project": "counter"
 })
 
