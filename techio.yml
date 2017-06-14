@@ -12,3 +12,6 @@ projects:
   counter:
     root: examples/counter
     runner: fraisse/node-runner
+  counter-vanilla:
+    root: examples/counter-vanilla
+    runner: fraisse/node-runner

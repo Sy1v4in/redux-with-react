@@ -8,6 +8,7 @@ The application used as example in the simple `Counter` application which you ca
 
 Now, let's start to code it!
 
+
 # Reducer
 
 The first function we're going to write is the "reducer" for the `Counter` application.
@@ -63,6 +64,46 @@ by an arrow function which has clearer semantic for a reducer which is a pure fu
   "project": "counter"
 })
 
+
 # Store
 
+Ok. Now you have a reducer. So… it will be easy to create a store now ;-)
+
+The Store is the object that brings the 3 principles of redux together.
+The store has the following responsibilities:
+
+  - holds the application state;
+  - allows access to state via the the `getState()` method;
+  - allows state to be updated via the `dispatch(action)` method;
+  - registers listeners via the `subscribe(listener)` method;
+  - Handles unregistering of listeners via the function returned by `subscribe(listener)`.
+
+It's important to note that you'll only have a **single store** in a Redux application.
+When you want to split your data handling logic, you'll use reducer composition instead of many stores.
+
+To create a store, redux provides the `createStore` function. It's easy to create a store if you have a reducer while the reducer is the first argument of the `createStore` function.
+You may optionally specify the initial state as the second argument to this function.
+This is useful for hydrating the state of the client to match the state of a Redux application running on the server.
+
+The store has 3 important methods.
+
+The first method of a store is called `getState()`. It retrieves the current state of the redux store.
+
+The second and the most commonly used `store` method is called `dispatch`. It dispatches action to change the state of the application.
+
+The third redux `store` method is called `subscribe`. It let's you register a callback that the redux store will called anytime an action has been dispatched. So, you can update the UI of your application to refact the current application state.
+
+Let's imagine a very naive implementation of an application which renders a counter into the doccument body of a web page. Anytime the body has been clicked an `'INCREMENT'` action is dispatched to increment the counter.
+
+Once the following code launched, you can click on the page to see the counter to be incremented.
+
+@[Run naive implementation]({
+  "stubs": ["src/index.js"],
+  "command": "yarn viewer-start",
+  "project": "counter-vanilla"
+})
+
+As you can see, the initial state is not displayed. You can amend the code extracting the lambda from the `subscribe` method into a `render` function and then, call it once, in order to display the initial state.
+
+s
 # React component
