@@ -2,6 +2,8 @@ title: "Redux with React by example: the famous ToDo list"
 plan:
   - title: Introduction
     statement: markdowns/introduction.md
+  - title: The counter example
+    statement: markdowns/counter.md
 
 projects:
   todos:
