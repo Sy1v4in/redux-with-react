@@ -1,4 +1,5 @@
-import todos from './todos'
+import deepFreeze from 'deep-freeze'
+import todos from './todos-refactored'
 
 describe('todos reducer', () => {
   it('should handle initial state', () => {
