@@ -1,6 +1,6 @@
 # Adding a todo: writing a Todo List reducer
 
-While the state in the previous was simply a number, in this application, the state is an array of "todos".
+While the state in the previous application was simply a number, in this application, the state is an array of `todo`s.
 A `todo` is a simple object with an `id`, its `text` and a `completed` boolean to specify if the todo has been done or not.
 The `id` and the `text` of the `todo` to add are basically provided by the action (`id` and `text` properties of the action itself).
 
