@@ -10,7 +10,7 @@ plan:
 projects:
   todos:
     root: examples/todos
-    runner: techio/node-npm-runner
+    runner: fraisse/node-runner
   counter:
     root: examples/counter
     runner: fraisse/node-runner
