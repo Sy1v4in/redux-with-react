@@ -263,6 +263,122 @@ Providing these 3 extracted components, lets use it in the previous solution in 
 As a final exercise about extracting presentational component, I propose you to extract the `Footer` component.
 This `Footer` component contains all the visibility filters. Obviously, this `Footer` component gets the `visibilityFilter` as parameter. But, to make the `FilterLink` a presentational component, an `onClick` parameter has to be added to this `FilterLink` which is provided by the `Footer` thanks to its own `onFilterClick` callback parameter.
 
+This concludes the initial refactoring of the todo list application into a single container (because it defines all the behaviour of the other components) called `TodoApp` and many presentational components that are only concern by with how things look.
+
+Once again, this separation of presentational components is not required in redux. But it is a recommanded pattern because it decouples the rendering from redux. So if you later decide to move your project to another framework, you will not have to change all your components because you could keep all your presentational components exactly the same ;-)
+
+However, this approach has a mainly *downside*: you have to pass a lot of props through the components to get them to the components which need them, including the callbacks. As the `Footer` component, some of the components are just intermediate components which just pass the supplied props to another components. This problem can easily be solved by introducing many intermediate container components as we will see in the next section.
+
+
+# New refactoring: extract container components
+
+If you have done the right job before, you should have defined 2 parameters to the `Footer` component which only pass them to the `FilterLink`. But these 2 parameters are not needed by this `Footer` component. So the simplest refactore that can be done is removing these arguments. Then, we can pass them to the `FilterLink`. So the `Footer` component becomes:
+
+```javascript
+const Footer = () => (
+  <p>
+    Show:
+    {" "}
+    <FilterLink filter="SHOW_ALL">All</FilterLink>
+    {", "}
+    <FilterLink filter="SHOW_ACTIVE">Active</FilterLink>
+    {", "}
+    <FilterLink filter="SHOW_COMPLETED">Completed</FilterLink>
+  </p>
+)
+```
+
+The FilterLink does not currently specifiy the behaviour for clicking on the link. It also needs the current filter  to tell wether it should be rendered as active. Therefor, it's a bit dishonest to say that the FilterLink is a real presentational component because it is unseparable from its behaviour. The only reasonable reaction to clicking on it is set the visibility filter by dispatching an action.
+
+That is why it is changed it to another presentational component called `Link`, and we will created another FilterLink component as a container component that uses `Link` for rendering. The Link component does not know anything about the filter. It only accepts the `active` props and it calles it onClick handler:
+
+```javascript
+const Link = ({ active, onClick, children }) => {
+  if (active) {
+      return <span>{children}</span>
+  }
+  return (
+    <a href="#"
+      onClick={e => {
+        e.preventDefault()
+        onClick()
+      }}>
+      {children}
+    </a>
+  )
+}
+```
+
+It is only concerned by rendering.
+
+Now, lets create another FilterLink component. It reads its state from the redux store using the getState method. As a container component, the FilterLink does not have is own presentation markups; it delegates its rendering to the Link presentational component.
+
+```javascript
+class FilterLink extends Component {
+  render() {
+    const props = this.props
+    const state = store.getState()
+
+    return (
+      <Link
+        active={props.filter === state.visibilityFilter}
+        onClick={() => store.dispatch({ type: 'SET_VISIBILITY_FILTER', filter: props.filter })}
+      >
+        {props.children}
+      </Link>
+    )
+  }
+}
+```
+
+The main problem of this implementation is that the rendering of this component depends on values that are red from the store but it does not listen the store changes. So if the parent component does not update when the store is updated, it going to render stale values. The technic provided by react is to use the life cycle hooks methods to subscribe to and unsubscribe from the store:
+
+```javascript
+class FilterLink extends Component {
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => this.forceUpdate())
+  }
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+  render() {...}
+}
+```
+
+The next candidate of the refactore stuf is the TodoList component. We can keep the TodoList component a presentational component.
+However, we can encapsulate the way currently visible todos into a separate component that **connect** the todo list to the redux store.
+This is the `VisibleTodoList`.
+
+```javascript
+class VisibleTodoList extends Component {
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => this.forceUpdate())
+  }
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+  render() {
+    const props = this.props
+    const state = store.getState()
+
+    return (
+      <TodoList
+        todos={getTodos(state.todos, state.visibilityFilter)}
+        onTodoClick={id => store.dispatch({
+          type: 'TOGGLE_TODO',
+          id
+        })}
+
+      <Link
+        active={props.filter === state.visibilityFilter}
+        onClick={() => store.dispatch({ type: 'SET_VISIBILITY_FILTER', filter: props.filter })}
+      >
+        {props.children}
+      </Link>
+    )
+  }
+}
+```
 
 
 
