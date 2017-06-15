@@ -151,6 +151,12 @@ Now we have to implement the visibility filter to show all, the completed or the
 
 We propose to create a new `FilterLink` component which could be render a simple html anchor which dispatches the `SET_VISIBILITY_FILTER` action with the right action `filter` name, e.g. `'SHOW_ALL'`, `'SHOW_ACTIVE'` and `'SHOW_COMPLETE'`. 3 `FilterLink` components are then added into the `TodoApp` component, at the bottom.
 
+If you stop here, you forget one of the main responsibility of component: render the current state. So, we have to render the todos for which their `completed` status matches the installed filter.
+
+It seems a good idea to define a function `getTodos(todos, filter)` which return the todos corresponding the filter value. The `TodoApp` will have to use this function instead of all the `todos` directly. Watch out that the filter value is in the store state as `visibilityFilter`, then it should be provided to the `TodoApp` component through its properties.
+
+Let's try to code all this visibility feature…
+
 @[Simple TodoApp with visibility filter]({
   "stubs": ["src/TodoApp-filter.js", "src/reducers/todos.js", "src/reducers/visibility-filter.js"],
   "command": "yarn techio-start -- TodoApp-filter",

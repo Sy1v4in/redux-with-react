@@ -19,11 +19,15 @@ const FilterLink = ({ filter, children }) => (
   </a>
 )
 
+const getTodos = (todos, filter) => {
+  // TODO: return the todos according to the filter value
+}
+
+// TODO: do not forget to provide the visibilityFilter in props
 const TodoApp = ({ todos }) => {
   let todoText;
   return (
     <div>
-      {/* { autofold */}
       <input ref={node => todoText = node} />
       <button onClick={() => {
         store.dispatch({
@@ -35,8 +39,8 @@ const TodoApp = ({ todos }) => {
       }}>
         Add Todo
       </button>
-      {/* } */}
       <ul>
+        {/* TODO: use the getTodos instead of the todos directly */}
         {todos.map(todo =>
           <li key={todo.id}
             onClick={() => {
@@ -57,7 +61,7 @@ const TodoApp = ({ todos }) => {
           Show:
           {' '}
           <FilterLink filter='SHOW_ALL'>All</FilterLink>
-          {' '}
+          {', '}
           {/* TODO: Add the show active and show completed FilterLinks */}
         </p>
     </div>
