@@ -2,6 +2,12 @@ import deepFreeze from 'deep-freeze'
 import todos from './todos-toggle'
 
 describe('todos reducer', () => {
+  it('should handle initial state', () => {
+    expect(
+      todos(undefined, {})
+    ).toEqual([])
+  })
+
   it('should handle TOGGLE_TODO', () => {
     const stateBefore = [
       {
