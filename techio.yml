@@ -4,6 +4,8 @@ plan:
     statement: markdowns/introduction.md
   - title: The counter example
     statement: markdowns/counter.md
+  - title: The famous Todo list application
+    statement: markdowns/todos-list.md
 
 projects:
   todos:
