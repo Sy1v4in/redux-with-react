@@ -9,7 +9,7 @@ Just remember that the reducer is a **pure** function. Then you don't have to mo
 Some ES6 feature as destructuring is really a nice help for that ;-)
 
 @[Add todo reducer]({
-  "stubs": [],
+  "stubs": ["src/reducers/todos-add.js", "src/reducers/todos-add.spec.js"],
   "command": "yarn techio-test -- todos-add",
   "project": "todos"
 })
