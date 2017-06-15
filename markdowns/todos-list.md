@@ -176,7 +176,7 @@ Easy
 })
 
 
-# TodoApp refactoring: extract many components
+# TodoApp refactoring: extract presentational components
 
 Nice, we have our application working! Good work!
 
@@ -260,7 +260,8 @@ Providing these 3 extracted components, lets use it in the previous solution in 
   "project": "todos"
 })
 
-
+As a final exercise about extracting presentational component, I propose you to extract the `Footer` component.
+This `Footer` component contains all the visibility filters. Obviously, this `Footer` component gets the `visibilityFilter` as parameter. But, to make the `FilterLink` a presentational component, an `onClick` parameter has to be added to this `FilterLink` which is provided by the `Footer` thanks to its own `onFilterClick` callback parameter.
 
 
 

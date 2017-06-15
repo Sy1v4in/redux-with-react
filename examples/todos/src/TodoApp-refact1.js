@@ -19,6 +19,7 @@ const FilterLink = ({ filter, currentFilter, children }) => {
       return <span>{children}</span>
   }
   return (
+    {/* TODO: extract the onClick behaviour into a new parameter */}
     <a href="#"
       onClick={(e) => {
         e.preventDefault()
@@ -29,6 +30,11 @@ const FilterLink = ({ filter, currentFilter, children }) => {
   )
   // }
 }
+
+const Footer = ({ visibilityFilter, onFilterClick }) => (
+  {/* TODO: complete the Footer component implementation
+    using the FilterLink component */}
+)
 
 const getTodos = (todos, filter) => {
   // { autofold
@@ -66,16 +72,17 @@ const TodoList = ({ todos, onTodoClick }) => (
 
 const AddTodo = ({ onAddClick }) => {
   let todoText
-
-  <div>
-    <input ref={node => todoText = node} />
-    <button onClick={() => {
-      onAddClick(todoText.value)
-      todoText.value = ''
-    }}>
-      Add Todo
-    </button>
-  </div>
+  return (
+    <div>
+      <input ref={node => todoText = node} />
+      <button onClick={() => {
+        onAddClick(todoText.value)
+        todoText.value = ''
+      }}>
+        Add Todo
+      </button>
+    </div>
+  )
 }
 
 const TodoApp = ({ todos, visibilityFilter }) => {
@@ -111,7 +118,9 @@ const TodoApp = ({ todos, visibilityFilter }) => {
           </li>
         )}
         </ul>
-        {/* TODO: to replace all this <ul> element */}
+
+        {/* TODO: extract these FilterLinks into the Footer component
+            and use this Footer component here */}
         <p>
           Show:
           {' '}
