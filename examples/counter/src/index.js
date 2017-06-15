@@ -16,9 +16,5 @@ const render = () => ReactDOM.render(
   rootEl
 )
 
-render()
 store.subscribe(render)
-
-const log = () => console.log('current state:\n', store.getState())
-log()
-store.subscribe(log)
+render()
