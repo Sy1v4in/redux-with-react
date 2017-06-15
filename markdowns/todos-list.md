@@ -158,7 +158,19 @@ It seems a good idea to define a function `getTodos(todos, filter)` which return
 Let's try to code all this visibility feature…
 
 @[Simple TodoApp with visibility filter]({
-  "stubs": ["src/TodoApp-filter.js", "src/reducers/todos.js", "src/reducers/visibility-filter.js"],
+  "stubs": ["src/TodoApp-filter.js"],
   "command": "yarn techio-start -- TodoApp-filter",
+  "project": "todos"
+})
+
+That's right?
+
+Now, it could be nice to show the selected filter in order to be more explicit. In our context, the simplest way to do that is to provide the current filter value to the `FilterLink` component and then, display a simple `span` instead of a `anchor` if the current filter is the same as the filter one.
+
+Easy
+
+@[Simple TodoApp with selected visibility filter]({
+  "stubs": ["src/TodoApp-filter-selected.js"],
+  "command": "yarn techio-start -- TodoApp-filter-selected",
   "project": "todos"
 })
