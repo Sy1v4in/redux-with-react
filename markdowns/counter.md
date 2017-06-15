@@ -105,5 +105,21 @@ Once the following code launched, you can click on the page to see the counter t
 
 As you can see, the initial state is not displayed. You can amend the code extracting the lambda from the `subscribe` method into a `render` function and then, call it once, in order to display the initial state.
 
-s
+
 # React component
+
+We have a naive implementation of the counter application which updates the document body manually anytime the store state is changing.
+Of course this approach does not scale to complex applications. So, instead of manually updating the DOM, we're going to use `react`.
+
+Then, the `render` function is changed to display the `Counter` react component. You have to provide an html file with a `div` identified with an identifier `<div id="root" />` for example. Then you can call the `ReactDOM.render` method in the `render` method with your `root` component.
+As explain previously, the render method is called anytime the state store value is changing. So you can savely pass the current state of the store (`store.getState()`) as a `value` `props` to the `Counter` component.
+
+Now we want to add an increment and decrement button to the `Counter` component, but we don't want to hard-code the redux dependency into this component. So, we add an `onIncrement` and `onDecrement` `props` as callbacks to this component and, in the `render` method, we provide this 2 `props` callbacks with an implementation using the `store` `dispatch` method with the appropriate actions.
+
+That's done! You can see the final code just bellow:
+
+@[React implementation]({
+  "stubs": ["public/index.html", "src/index.js", "src/components/Counter.js"],
+  "command": "yarn techio-start",
+  "project": "counter"
+})
