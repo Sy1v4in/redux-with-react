@@ -204,7 +204,45 @@ const Todo = () => {
 ```
 
 We can then remove the special `key` attribute which is only used when a specific array is displayed but, here, just one component is rendered.
-We designing a component, the idea is to make it flexible as it is reasonable. Right now the click in a todo is hardcoded to dispatch the `'TOGGLE_TODO'` action. It could be ok to do that, but often we prefer to have component that don't specify any behaviour, just concern by how the be rendered. This kind of component could be called "Prensentational components". We can then define a `onClick` `props` to the `Todo` component
+We designing a component, the idea is to make it flexible as it is reasonable. Right now the click in a todo is hardcoded to dispatch the `'TOGGLE_TODO'` action. It could be ok to do that, but often we prefer to have component that don't specify any behaviour, just concern by how the be rendered. This kind of component could be called "presentational components". We can then define a `onClick` `props` to the `Todo` component. Equaly, it could be better to specify exactly the text that will be displayed instead of get it on a specific property of an object. The more cleaner `Todo` component could be:
+
+```javascript
+const Todo = ({onClick, completed, text}) => {
+  <li key={todo.id}
+    onClick={onClick}
+    style={{
+        textDecoration: completed ? 'line-through': 'none'
+    }}>
+    {text}
+  </li>
+}
+```
+
+Lets extract the `TodoList` component. It is also a presentational component which only concern by how the todos list looks. Given the todos list, it will render each todo. Because the `Todo` component needs an `onClick` callback in its `props`, the `TodoList` will also accept an `onTodoClick` callback which will call the `onClick` with the specific `todo` `id` to distinguish the clicked todo:
+
+```javascript
+const TodoList = ({todos, onTodoClick}) => {
+  <ul>
+    {todos.map(todo =>
+      <Todo key={todo.id}
+        {...todo}
+        onClick={() => onTodoClick(todo.id)}
+      />
+    )}
+  </ul>
+}
+```
+
+Providing these 2 components, lets use it in the previous solution in order to simplify the `TodoApp` component code:
+
+@[Extract the first presentational components]({
+  "stubs": ["src/TodoApp-refact1.js"],
+  "command": "yarn techio-start -- TodoApp-refact1",
+  "project": "todos"
+})
+
+
+
 
 
 # Avoid a global store variable
