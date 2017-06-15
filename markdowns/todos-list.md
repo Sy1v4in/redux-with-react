@@ -174,3 +174,37 @@ Easy
   "command": "yarn techio-start -- TodoApp-filter-selected",
   "project": "todos"
 })
+
+
+# TodoApp refactoring: extract many components
+
+Nice, we have our application working! Good work!
+
+But, in react application we really like to have many components that can be used, tested and updated by different people separately.
+So we are going to refactore our application extracting many components.
+
+The first component that could be extracted in this todo list application is… the `Todo` component ;-)
+This `Todo` component just renders a single list item. This should be somthing like:
+
+```javascript
+const Todo = () => {
+  <li key={todo.id}
+    onClick={() => {
+        store.dispatch({
+            type: 'TOGGLE_TODO',
+            id: todo.id
+        })
+    }}
+    style={{
+        textDecoration: todo.completed ? 'line-through': 'none'
+    }}>
+    {todo.text}
+  </li>
+}
+```
+
+We can then remove the special `key` attribute which is only used when a specific array is displayed but, here, just one component is rendered.
+We designing a component, the idea is to make it flexible as it is reasonable. Right now the click in a todo is hardcoded to dispatch the `'TOGGLE_TODO'` action. It could be ok to do that, but often we prefer to have component that don't specify any behaviour, just concern by how the be rendered.
+
+
+# Avoid a global store variable
