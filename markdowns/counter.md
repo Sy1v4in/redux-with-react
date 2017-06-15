@@ -119,7 +119,7 @@ Now we want to add an increment and decrement button to the `Counter` component,
 That's done! You can see the final code just bellow:
 
 @[React implementation]({
-  "stubs": ["public/index.html", "src/index.js", "src/components/Counter.js"],
+  "stubs": ["public/index.html", "src/index.js", "src/components/Counter.jsx"],
   "command": "yarn techio-start",
   "project": "counter"
 })
