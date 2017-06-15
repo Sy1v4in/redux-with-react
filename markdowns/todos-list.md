@@ -139,7 +139,20 @@ The idea is to toggle the `completed` state of the prop just by clicking on it o
 In the user interface, we want the completed `todo` to appear cross. So you have to add the `style` attribute to the `li` element with the `textDecoration` attribute to `'line-through'` when the todo is completed and `'none'` otherwise. The syntax of the style attribute is to use 2 `{{}}` and to use a classical javascript syntax for the object: `textDecoration: todo.completed ? ...`
 
 @[TodoApp boostrap component]({
-  "stubs": ["src/TodoApp.js"],
+  "stubs": ["src/TodoApp.js", "src/reducers/todos.js", "src/reducers/visibility-filter.js"],
   "command": "yarn techio-start -- TodoApp",
+  "project": "todos"
+})
+
+
+# Visibility filter component
+
+Now we have to implement the visibility filter to show all, the completed or the active todos.
+
+We propose to create a new `FilterLink` component which could be render a simple html anchor which dispatches the `SET_VISIBILITY_FILTER` action with the right action `filter` name, e.g. `'SHOW_ALL'`, `'SHOW_ACTIVE'` and `'SHOW_COMPLETE'`. 3 `FilterLink` components are then added into the `TodoApp` component, at the bottom.
+
+@[Simple TodoApp with visibility filter]({
+  "stubs": ["src/TodoApp-filter.js", "src/reducers/todos.js", "src/reducers/visibility-filter.js"],
+  "command": "yarn techio-start -- TodoApp-filter",
   "project": "todos"
 })

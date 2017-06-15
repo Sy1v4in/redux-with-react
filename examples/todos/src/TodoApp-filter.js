@@ -13,7 +13,7 @@ let nextTodoId = 0
 
 const FilterLink = ({ filter, children }) => (
   <a href="#">
-    {/* install a onClick handler to dispatch the the 'SET_VISIBILITY_FILTER' action
+    {/* TODO: install a onClick handler to dispatch the the 'SET_VISIBILITY_FILTER' action
        with the supplied filter */}
     {children}
   </a>
