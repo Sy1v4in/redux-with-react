@@ -119,7 +119,10 @@ Now we want to add an increment and decrement button to the `Counter` component,
 That's done! You can see the final code just bellow:
 
 @[React implementation]({
-  "stubs": ["public/index.html", "src/index.js", "src/components/Counter.jsx"],
+  "stubs": ["public/index.html", "src/index.js", "src/reducers/final-counter-reducer.js", "src/components/Counter.jsx"],
   "command": "yarn techio-start",
   "project": "counter"
 })
+
+Your first very simple redux + react application is done! As you can see, concepts are really simple, don't you think?
+So now, let's use them on a little more complexe application.
