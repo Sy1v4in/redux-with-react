@@ -1,6 +1,6 @@
 # Adding a todo: writing a Todo List reducer
 
-Although the state in the previous was simply a number, in this application, the state is an array of "todos".
+While the state in the previous was simply a number, in this application, the state is an array of "todos".
 A `todo` is a simple object with an `id`, its `text` and a `completed` boolean to specify if the todo has been done or not.
 The `id` and the `text` of the `todo` to add are basically provided by the action (`id` and `text` properties of the action itself).
 
@@ -99,3 +99,38 @@ const todoApp = combineReducers({
  The returned value of this `combineReducers` is a reducer function which is pretty much equivalent to the `todoApp` function written previously.
 
 Then, by convention, if you call your reducers exactly as the state property name it manages, the combined reducers could easily simplify (thanks to ES6 object literal shorthand notation) in: `combineReducers({todos, visibilityFilter})`. Pretty nice, don't you think?
+
+
+# The view
+
+Ok! We have a simple root reducer splitted in many reducers easily to maintain and debug. Now it's time to code the view of this simple todo application with React.
+
+Exactly like the previous counter application, we will code a main render function that uses react to render the `TodoApp` component into the root DOM element. And also we subscribe this render function to the store changes. That could be something like:
+
+```javascript
+const todoApp = combineReducers({ todos, visibilityFilter })
+const store = createStore(todoApp)
+const render = () => {
+  ReactDOM.render(<TodoApp />, document.getElementById('root'))
+}
+store.subscribe(render)
+render()
+```
+
+It is not necessary to write it by your own because it will be simplified at the end of this playground ;-)
+
+This section provides a very simple `TodoApp` component in order to bootstrap the application.
+The idea is just to provide 3 main html elements:
+  - an input in which the user can enter the text of its todos
+  - a button which adds a `todo` with the supplied text in the input
+  - a list in which the created todos are displayed.
+
+You can see common pattern for react component: dispatching actions that will update the application and rendering the current state.
+
+A global variable is used to manage the todo ids. As you can see in the code bellow, the todos are provided as `TodoApp` component `props`.
+
+@[TodoApp boostrap component]({
+  "stubs": ["TodoApp.js"],
+  "command": "yarn techio-start -- TodoApp",
+  "project": "todos"
+})
