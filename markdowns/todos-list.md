@@ -129,10 +129,17 @@ You can see common pattern for react component: dispatching actions that will up
 
 A global variable is used to manage the todo ids. As you can see in the code bellow, the todos are provided as `TodoApp` component `props`.
 
+As you can see, the component renders the `todos` from its properties, not its own state like we can see in react application. That is because the main `render` function listens to the store changes and pass the todos values from the store to the `TodoApp` component properties. Thanks to this redux flow, you obtain a stateless react component.
+
+You can test this first todo list application with the code provided just bellow.
+
+It is up to you now to add the toggle feature into the component!
+
+The idea is to toggle the `completed` state of the prop just by clicking on it on le list of `todos`. So, you have to add a `onClick` handler which has to dispatch the `'TOGGLE_TODO'` action.
+In the user interface, we want the completed `todo` to appear cross. So you have to add the `style` attribute to the `li` element with the `textDecoration` attribute to `'line-through'` when the todo is completed and `'none'` otherwise. The syntax of the style attribute is to use 2 `{{}}` and to use a classical javascript syntax for the object: `textDecoration: todo.completed ? ...`
+
 @[TodoApp boostrap component]({
   "stubs": ["src/TodoApp.js"],
   "command": "yarn techio-start -- TodoApp",
   "project": "todos"
 })
-
-As you can see, the component renders the `todos` from its properties, not its own state like we can see in react application. That is because the main `render` function listens to the store changes and pass the todos values from the store to the `TodoApp` component properties. Thanks to this redux flow, you obtain a stateless react component.
