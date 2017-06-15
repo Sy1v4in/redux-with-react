@@ -1,3 +1,4 @@
+// { autofold
 import React from 'react'
 
 import { createStore, combineReducers } from 'redux'
@@ -10,6 +11,7 @@ const todoApp = combineReducers({ todos, visibilityFilter })
 const store = createStore(todoApp)
 
 let nextTodoId = 0
+// }
 
 const FilterLink = ({ filter, currentFilter, children }) => {
   // { autofold
@@ -62,10 +64,25 @@ const TodoList = ({ todos, onTodoClick }) => (
   </ul>
 )
 
+const AddTodo = ({ onAddClick }) => {
+  let todoText
+
+  <div>
+    <input ref={node => todoText = node} />
+    <button onClick={() => {
+      onAddClick(todoText.value)
+      todoText.value = ''
+    }}>
+      Add Todo
+    </button>
+  </div>
+}
+
 const TodoApp = ({ todos, visibilityFilter }) => {
-  let todoText;
+  let todoText
   return (
     <div>
+      {/* TODO: use the AddTodo component */}
       <input ref={node => todoText = node} />
       <button onClick={() => {
         store.dispatch({

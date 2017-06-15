@@ -233,13 +233,33 @@ const TodoList = ({todos, onTodoClick}) => {
 }
 ```
 
-Providing these 2 components, lets use it in the previous solution in order to simplify the `TodoApp` component code:
+Continue to extract presentational components extracting the `input` and the `button` in a separate component called `AddTodo`.
+It is done exactly as previously with an `onAddClick` callback to specify what to do when the button is clicked:
+
+```javascript
+const AddTodo = ({ onAddClick }) => {
+  let todoText
+
+  <div>
+    <input ref={node => todoText = node} />
+    <button onClick={() => {
+      onAddClick(todoText.value)
+      todoText.value = ''
+    }}>
+      Add Todo
+    </button>
+  </div>
+}
+```
+
+Providing these 3 extracted components, lets use it in the previous solution in order to simplify the `TodoApp` component code:
 
 @[Extract the first presentational components]({
   "stubs": ["src/TodoApp-refact1.js"],
   "command": "yarn techio-start -- TodoApp-refact1",
   "project": "todos"
 })
+
 
 
 
