@@ -184,7 +184,7 @@ But, in react application we really like to have many components that can be use
 So we are going to refactore our application extracting many components.
 
 The first component that could be extracted in this todo list application is… the `Todo` component ;-)
-This `Todo` component just renders a single list item. This should be somthing like:
+This `Todo` component just renders a single list item. This should be something like:
 
 ```javascript
 const Todo = () => {
@@ -204,7 +204,7 @@ const Todo = () => {
 ```
 
 We can then remove the special `key` attribute which is only used when a specific array is displayed but, here, just one component is rendered.
-We designing a component, the idea is to make it flexible as it is reasonable. Right now the click in a todo is hardcoded to dispatch the `'TOGGLE_TODO'` action. It could be ok to do that, but often we prefer to have component that don't specify any behaviour, just concern by how the be rendered.
+We designing a component, the idea is to make it flexible as it is reasonable. Right now the click in a todo is hardcoded to dispatch the `'TOGGLE_TODO'` action. It could be ok to do that, but often we prefer to have component that don't specify any behaviour, just concern by how the be rendered. This kind of component could be called "Prensentational components". We can then define a `onClick` `props` to the `Todo` component
 
 
 # Avoid a global store variable
