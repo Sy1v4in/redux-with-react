@@ -2,7 +2,7 @@ Here is a step by step example in order to code a simple application using redux
 The application used as example in the simple `Counter` application which you can find the preview:
 
 @[Counter application preview]({
-  "command": "./run",
+  "command": "yarn techio-start",
   "project": "counter"
 })
 
