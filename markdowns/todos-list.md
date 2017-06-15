@@ -101,7 +101,7 @@ const todoApp = combineReducers({
 Then, by convention, if you call your reducers exactly as the state property name it manages, the combined reducers could easily simplify (thanks to ES6 object literal shorthand notation) in: `combineReducers({todos, visibilityFilter})`. Pretty nice, don't you think?
 
 
-# The view
+# Bootstrap of the view
 
 Ok! We have a simple root reducer splitted in many reducers easily to maintain and debug. Now it's time to code the view of this simple todo application with React.
 
@@ -130,7 +130,9 @@ You can see common pattern for react component: dispatching actions that will up
 A global variable is used to manage the todo ids. As you can see in the code bellow, the todos are provided as `TodoApp` component `props`.
 
 @[TodoApp boostrap component]({
-  "stubs": ["TodoApp.js"],
+  "stubs": ["src/TodoApp.js"],
   "command": "yarn techio-start -- TodoApp",
   "project": "todos"
 })
+
+As you can see, the component renders the `todos` from its properties, not its own state like we can see in react application. That is because the main `render` function listens to the store changes and pass the todos values from the store to the `TodoApp` component properties. Thanks to this redux flow, you obtain a stateless react component.
