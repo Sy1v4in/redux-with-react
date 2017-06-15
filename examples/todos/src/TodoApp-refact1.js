@@ -13,6 +13,9 @@ let nextTodoId = 0
 
 const FilterLink = ({ filter, currentFilter, children }) => {
   // { autofold
+  if (filter === currentFilter) {
+      return <span>{children}</span>
+  }
   return (
     <a href="#"
       onClick={(e) => {
@@ -38,17 +41,17 @@ const getTodos = (todos, filter) => {
   // }
 }
 
-const Todo = ({onClick, completed, text}) => {
-  <li key={todo.id}
+const Todo = ({ onClick, completed, text }) => (
+  <li
     onClick={onClick}
     style={{
         textDecoration: completed ? 'line-through': 'none'
     }}>
     {text}
   </li>
-}
+)
 
-const TodoList = ({todos, onTodoClick}) => {
+const TodoList = ({ todos, onTodoClick }) => (
   <ul>
     {todos.map(todo =>
       <Todo key={todo.id}
@@ -57,7 +60,7 @@ const TodoList = ({todos, onTodoClick}) => {
       />
     )}
   </ul>
-}
+)
 
 const TodoApp = ({ todos, visibilityFilter }) => {
   let todoText;
@@ -91,8 +94,8 @@ const TodoApp = ({ todos, visibilityFilter }) => {
           </li>
         )}
         </ul>
+        {/* TODO: to replace all this <ul> element */}
         <p>
-          {/* Provide the visibilityFilter as the currentFilter to each FilterLink */}
           Show:
           {' '}
           <FilterLink filter='SHOW_ALL' currentFilter={visibilityFilter}>All</FilterLink>
