@@ -55,3 +55,47 @@ Just let's do it. Hopefully we have some tests to check if the refactore does th
   "command": "yarn techio-test -- todos-refactored",
   "project": "todos"
 })
+
+
+# Visibility filter: reducers composition with object
+
+For now, we have an application with a store representing an array of todos and with reducers to add and toggle `todos`.
+Now we want let the user choose which `todos` are currently visible according to the `completed` status of `todos`.
+
+To implement this new feature, we will introduce a `visibilityFilter` reducer which should show all, show complete or show active `todos`.
+The state of the visibilityFilter reducer is a simple `string` represented the current filter value. It changes through the `'SET_VISIBILITY_FILTER'` action which contains the new filter value.
+
+The code of this `visibilityFilter` reducer is really obvious:
+
+@[visibilityFilter reducer]({
+  "stubs": ["src/reducers/visibilityFilter.js", "src/reducers/visibilityFilter.spec.js"],
+  "command": "yarn techio-test -- visibilityFilter",
+  "project": "todos"
+})
+
+
+To store this new information, we don't need to change the existing reducers. We will use the reducer composition pattern as we see it previously. Let's then create a new reducer  which calls all the existing reducers to manage all the parts of the application state management and combine the results into a single state object:
+
+```javascript
+const todoApp = (state = {}, action) => {
+  return {
+    todos: todos(state.todos, action),
+    visibilityFilter: visibilityFilter(state.visibilityFilter, action)
+  }
+}
+```
+
+This is a new example of the reducers composition pattern. But this time we use it to combine severall reducers into a single reducer that now we can use to **create our unique application store**: `createStore(todoApp)`. The initial state of the combined reducers now contain the initial state of the independant reducers. Anytime an action comes in, those reducers handle the action independantly.
+
+In fact, this pattern is so common that it is present in most redux applications. This is why redux provides a function called `combineReducers` that lets you avoid to write this code by hand. It generates the "top" reducer just for you. The only argument to provide to the `combineReducers` is an object. This object specifies the mapping between the `state` object names and the reducers that manage them.
+
+```javascript
+const todoApp = combineReducers({
+  todos: todos,
+  visibilityFilter: visibilityFilter
+})
+```
+
+ The returned value of this `combineReducers` is a reducer function which is pretty much equivalent to the `todoApp` function written previously.
+
+Then, by convention, if you call your reducers exactly as the state property name it manages, the combined reducers could easily simplify (thanks to ES6 object literal shorthand notation) in: `combineReducers({todos, visibilityFilter})`. Pretty nice, don't you think?
