@@ -10,10 +10,13 @@ plan:
 projects:
   todos:
     root: examples/todos
-    runner: fraisse/node-runner
+    runner: node:8
+    buildCommand: "yarn install"
   counter:
     root: examples/counter
-    runner: fraisse/node-runner
+    runner: node:8
+    buildCommand: "yarn install"
   counter-vanilla:
     root: examples/counter-vanilla
-    runner: fraisse/node-runner
+    runner: node:8
+    buildCommand: "yarn install"
